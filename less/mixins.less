@@ -1,0 +1,59 @@
+.transform(...) {
+  -webkit-transform: @arguments;
+  -moz-transform: @arguments;
+  -o-transform: @arguments;
+  -ms-transform: @arguments;
+  transform: @arguments;
+}
+
+.box-shadow(...) {
+  -webkit-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  -o-box-shadow: @arguments;
+  -ms-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+
+.anti-aliasing() {
+  .transform(rotate(0.00001deg));
+}
+
+.traingle-tmp(@width, @height) {
+  content: '';
+  border-width: @height/2 @width/2;
+  border-style: solid;
+  border-color: transparent;
+  width: 0px;
+  height: 0px;
+  .anti-aliasing();
+}
+
+.traingle(@width, @height, @color: transparent, @type: 1, @alpha: 1)when (@type = 1){
+  .traingle-tmp(@width, @height);
+  border-color: @color @color transparent transparent;
+  @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
+  border-color: @rgba @rgba transparent transparent;
+
+}
+
+.traingle(@width, @height, @color: transparent, @type: 1, @alpha: 1)when (@type = 5){
+  .traingle-tmp(@width, @height);
+  border-color: transparent @color @color transparent;
+  @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
+  border-color: transparent @rgba @rgba transparent;
+}
+
+.traingle(@width, @height, @color: transparent, @type: 1, @alpha: 1)when (@type = 7){
+  .traingle-tmp(@width, @height);
+  border-color: transparent transparent @color @color;
+  @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
+  border-color: transparent transparent @rgba @rgba;
+}
+
+.traingle(@width, @height, @color: transparent, @type: 1, @alpha: 1)when (@type = 11){
+  .traingle-tmp(@width, @height);
+  border-color: @color transparent transparent @color;
+  @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
+  border-color: @rgba transparent transparent @rgba;
+}
+
